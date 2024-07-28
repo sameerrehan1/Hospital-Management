@@ -5,9 +5,18 @@ class ErrorHandler extends Error{
     }
 }
 
+/*
+    This class extends the built-in Error class, adding a statusCode property. It allows you to create errors with specific HTTP status codes.
+*/
+
 export const errorMiddleware =(err,req,res,next)=>{
     err.message = err.message || "Internal server Error";
     err.statusCode = err.statusCode || 500;
+
+    /*
+        These lines set default values for the error message and status code if they're not already set.
+        The following blocks handle specific types of errors:
+    */
 
     if(err.code === 11000){
         const message= `Duplicate ${Object.keys(err.keyValue)} Entered`;
